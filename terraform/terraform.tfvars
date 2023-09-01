@@ -1,0 +1,8 @@
+app_name            = "prisjakt-scraper"
+database_name       = "prisjaktscraperdb"
+region              = "eu-west-1"
+vpc_name            = "prisjakt-vpc"
+task_name           = "prisjakt-scraper-task"
+schedule_expression = "rate(24 hour)"
+# repo_ref            = "repo:prisjakt-For-The-People/real_estate_scraper:ref:refs/heads/master"
+repo_ref            = "TODO"

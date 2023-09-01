@@ -1,0 +1,9 @@
+Generic single-database configuration.
+
+how to make database migrations
+
+1. > alembic revision -m " {name_of_operation} ". Name of operation might be 'add feature column to ad_data table'
+2. find the generated .py file under alembic/versions from your root folder
+3. create statements with alembic package in 'upgrade' and 'downgrade' function to tell alembic how to migrate the db one step forward (upgrade) and how to eventually cancel out this migration (downgrade). See alembic/versions/1679414701-15c0e8bef1fc_create_ad_table.py for an example
+4. > alembic upgrade head
+5. See that execution of script is succesful in the console output
