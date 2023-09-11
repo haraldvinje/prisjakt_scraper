@@ -30,6 +30,12 @@ COPY ./alembic ./alembic
 COPY ./alembic.ini ./alembic.ini
 COPY ./.env ./.env
 
+# Install chrome to run webdriver
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+RUN apt-get -y update
+RUN apt-get install -y google-chrome-stable
+
 FROM staging as development
 ARG APP_NAME
 ARG APP_PATH
