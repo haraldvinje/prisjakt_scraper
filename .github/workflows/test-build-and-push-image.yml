@@ -10,8 +10,7 @@ permissions:
 
 jobs:
   run-tests:
-    uses: TODO
-    # uses: prisjakt-For-The-People/real_estate_scraper/.github/workflows/run-tests.yml@master
+    uses: haraldvinje/prisjakt_scraper/.github/workflows/run-tests.yml@master
 
   build-and-push-image-to-ecr:
     needs: run-tests
