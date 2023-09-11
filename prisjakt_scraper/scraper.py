@@ -1,6 +1,5 @@
 import re
 from unicodedata import normalize
-from datetime import datetime
 from typing import List, Set, Dict, Union
 
 import time
@@ -16,24 +15,20 @@ from prisjakt_scraper.logger.logger import logger
 from prisjakt_scraper.database.models.product import ScrapedProduct
 
 options = webdriver.ChromeOptions()
-options.headless = True  # it's more scalable to work in headless mode
-# normally, selenium waits for all resources to download
-# we don't need it as the page also populated with the running javascript code.
+options.headless = True
 options.page_load_strategy = "none"
-# this returns the path web driver downloaded
 chrome_path = ChromeDriverManager().install()
 chrome_service = Service(chrome_path)
-# pass the defined options and service objects to initialize the web driver
 driver = Chrome(options=options, service=chrome_service)
 driver.implicitly_wait(3)
-
 
 
 BASE_URL = "https://www.prisjakt.no"
 
 
 def price_string_to_number(price_string: str) -> int:
-    return int(re.sub(r'[^\d.]', '', price_string))
+    return int(re.sub(r"[^\d.]", "", price_string))
+
 
 def clean_dictionary(dictionary: Dict) -> Dict:
     return {key: str(value) for key, value in dictionary.items()}
@@ -54,8 +49,9 @@ def find_element_by_xpath(element: WebElement, xpath_expression: str) -> WebElem
 
 
 def get_product_details(element: WebElement) -> Union[ScrapedProduct, None]:
+    product_url = element.get_attribute("href")
+    logger.info(f"Scraping product with url {product_url}")
     try:
-        product_url = element.get_attribute("href")
         product_id = product_url.split("p=")[-1]
 
         product_discounted_price_element = find_element_by_xpath(
@@ -63,7 +59,9 @@ def get_product_details(element: WebElement) -> Union[ScrapedProduct, None]:
         )
         product_discounted_price = None
         if product_discounted_price_element:
-            product_discounted_price = price_string_to_number(normalize("NFKD", product_discounted_price_element.text))
+            product_discounted_price = price_string_to_number(
+                normalize("NFKD", product_discounted_price_element.text)
+            )
 
         product_discount_element = find_element_by_xpath(
             element, './/div[starts-with(@class, "DiffPercentage")]'
@@ -74,7 +72,9 @@ def get_product_details(element: WebElement) -> Union[ScrapedProduct, None]:
 
         product_original_price = None
         if product_discounted_price and product_discount_percentage:
-            product_original_price = product_discounted_price / (1 - (product_discount_percentage / 100))
+            product_original_price = product_discounted_price / (
+                1 - (product_discount_percentage / 100)
+            )
 
         product_name_element = find_element_by_xpath(
             element, './/span[@data-test="ProductName"]'
@@ -89,7 +89,7 @@ def get_product_details(element: WebElement) -> Union[ScrapedProduct, None]:
             "discount_percentage": product_discount_percentage,
             "name": product_name,
             "discounted_price": product_discounted_price,
-            "original_price": product_original_price
+            "original_price": product_original_price,
         }
     except BaseException as error:
         logger.warning(

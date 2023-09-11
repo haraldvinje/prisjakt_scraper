@@ -4,7 +4,7 @@ from prisjakt_scraper.database.repositories.product import store_products
 
 
 def main():
-    # check_database_connection()
+    check_database_connection()
     products = get_all_products()
     store_products(products)
 
