@@ -15,7 +15,7 @@ from prisjakt_scraper.logger.logger import logger
 from prisjakt_scraper.database.models.product import ScrapedProduct
 
 options = webdriver.ChromeOptions()
-options.headless = True
+options.add_argument("--headless=new")
 options.page_load_strategy = "none"
 chrome_path = ChromeDriverManager().install()
 chrome_service = Service(chrome_path)
@@ -99,16 +99,17 @@ def get_product_details(element: WebElement) -> Union[ScrapedProduct, None]:
         raise RuntimeError from error
 
 
-def get_products_on_page(page_number: int):
+def get_product_elements_on_page(page_number: int):
     path = f"tema/dagens-tilbud?price-drop=10&sort=dealUpdateTime&page={page_number}"
     url = f"{BASE_URL}/{path}"
     xpath = '//a[@data-test="InternalLink" and starts-with(@href, "/product.php")][descendant::div]'
+    return get_elements(url, xpath)
 
-    product_elements = get_elements(url, xpath)
+def get_products_on_page(page_number: int):
+    product_elements = get_product_elements_on_page(page_number)
     products = []
     for product_element in product_elements:
         products.append(get_product_details(product_element))
-
     return products
 
 

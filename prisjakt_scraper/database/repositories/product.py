@@ -9,7 +9,7 @@ from prisjakt_scraper.database.models.product import Product, ScrapedProduct
 
 @db_session
 def store_product(session: Session, product: ScrapedProduct):
-    session.merge(Product(product))
+    session.merge(Product(**product))
 
 
 @db_session
