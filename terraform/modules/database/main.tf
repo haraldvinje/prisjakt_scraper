@@ -31,6 +31,7 @@ resource "aws_db_instance" "prisjakt_scraper_db" {
   allocated_storage           = 20
   storage_type                = "gp2"
   publicly_accessible         = false
+  skip_final_snapshot         = true
   db_subnet_group_name        = aws_db_subnet_group.db_subnet_group.name
   ca_cert_identifier          = "rds-ca-rsa4096-g1"
 }
