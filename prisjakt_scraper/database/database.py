@@ -43,7 +43,7 @@ def check_database_connection():
         connection = engine.connect()
         if not inspect(engine).has_table(table_that_should_exist):
             raise SessionException(
-                f"Table {table_that_should_exist} does not exist. Have you run migrations?"
+                f"Table '{table_that_should_exist}' does not exist. Have you run migrations?"
             )
         logger.info("Successfully connected to database")
     except BaseException as operational_error:

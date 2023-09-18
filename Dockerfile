@@ -1,9 +1,8 @@
+FROM python:3.11.5
+
 ARG APP_NAME=prisjakt_scraper
 ARG APP_PATH=/opt/$APP_NAME
-ARG PYTHON_VERSION=3.11.5
 ARG POETRY_VERSION=1.3.2
-
-FROM python:$PYTHON_VERSION
 
 # Install system dependencies for Chrome and Poetry
 RUN apt-get update -y && \
@@ -39,6 +38,8 @@ COPY ./.env ./.env
 WORKDIR $APP_PATH
 RUN poetry install
 
-# Define the command to run your application
-# CMD ["pwd"]
-CMD ["poetry", "run", "python", "prisjakt_scraper/main.py"]
+ARG START_COMMAND="cd ${APP_PATH} && poetry run alembic upgrade head && poetry run python ${APP_NAME}/main.py"
+RUN echo ${START_COMMAND} >> run.sh
+RUN chmod +x run.sh
+
+ENTRYPOINT ["/bin/sh", "run.sh"]
