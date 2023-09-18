@@ -3,17 +3,13 @@ ARG APP_PATH=/opt/$APP_NAME
 ARG PYTHON_VERSION=3.11.5
 ARG POETRY_VERSION=1.3.2
 
-# Use an official Python runtime as a parent image
 FROM python:$PYTHON_VERSION
-
-ENV POETRY_HOME="/opt/poetry"
 
 # Install system dependencies for Chrome and Poetry
 RUN apt-get update -y && \
     apt-get install -yqq \
     curl \
     wget \
-    tree \
     unzip \
     gnupg \
     && apt-get clean
@@ -26,6 +22,9 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
     rm -rf /var/lib/apt/lists/*
 
 # Install Poetry - respects $POETRY_VERSION & $POETRY_HOME
+ENV \
+    POETRY_VERSION=$POETRY_VERSION \
+    POETRY_HOME="/opt/poetry"
 RUN curl -sSL https://install.python-poetry.org | python -
 ENV PATH="$POETRY_HOME/bin:$PATH"
 
