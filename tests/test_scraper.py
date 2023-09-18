@@ -20,17 +20,22 @@ def product_dict():
         product_dict = json.load(f)
     return product_dict
 
+
 def test_get_product_elements_on_page():
     product_elements = get_product_elements_on_page(1)
     assert len(product_elements) >= 6
-    assert all('p=' in product_element.get_attribute('href') for product_element in product_elements)
+    assert all(
+        "p=" in product_element.get_attribute("href")
+        for product_element in product_elements
+    )
 
 
 def test_get_product_details():
     product_elements = get_product_elements_on_page(1)
     product_details = get_product_details(product_elements[0])
-    assert 'url' in product_details
-    assert 'product_id' in product_details
+    assert "url" in product_details
+    assert "product_id" in product_details
+
 
 def test_store_product(session, mocker, product_dict):
     mocker.patch("prisjakt_scraper.database.database.Session", return_value=session)

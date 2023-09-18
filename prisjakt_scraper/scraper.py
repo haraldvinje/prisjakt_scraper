@@ -16,7 +16,8 @@ from prisjakt_scraper.database.models.product import ScrapedProduct
 
 options = webdriver.ChromeOptions()
 options.add_argument("--headless=new")
-options.page_load_strategy = "none"
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
 chrome_path = ChromeDriverManager().install()
 chrome_service = Service(chrome_path)
 driver = Chrome(options=options, service=chrome_service)
@@ -104,6 +105,7 @@ def get_product_elements_on_page(page_number: int):
     url = f"{BASE_URL}/{path}"
     xpath = '//a[@data-test="InternalLink" and starts-with(@href, "/product.php")][descendant::div]'
     return get_elements(url, xpath)
+
 
 def get_products_on_page(page_number: int):
     product_elements = get_product_elements_on_page(page_number)
