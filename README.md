@@ -9,7 +9,7 @@
 
 ### Local database
 
-You should create a local database instance with [docker](https://www.docker.com/get-started/): `docker compose up`. This will create a database available at `localhost:5555`. Then to populate the database with the right tables, run `poetry run alembic upgrade head`. To verify the database and table creation, run `docker exec -it prisjakt_scraper-db-1 psql -U postgres -d prisjaktscraperdb` and then (e. g.) `select * from procut;`
+You should create a local database instance with [docker](https://www.docker.com/get-started/): `docker compose up`. This will create a database available at `localhost:5555`. Then to populate the database with the right tables, run `poetry run alembic upgrade head`. To verify the database and table creation, run `docker exec -it prisjakt_scraper-db-1 psql -U postgres -d prisjaktscraperdb` and then (e. g.) `select * from product;`
 
 ### Run code
 
