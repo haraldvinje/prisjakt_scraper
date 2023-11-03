@@ -27,7 +27,6 @@ webdriver-manager = "^4.0.0"
 black = "^23.1.0"
 flake8 = "^6.0.0"
 flake8-pyproject = "^1.2.3"
-pylint = "^3.0.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -38,15 +37,3 @@ ignore = ['E231', 'E241']
 per-file-ignores = ['__init__.py:F401']
 max-line-length = 120
 count = true
-
-[tool.pylint.'linters']
-disable = [
-    "missing-docstring, logging-format-interpolation",
-    "logging-fstring-interpolation",
-    "too-many-instance-attributes",
-    "too-few-public-methods",
-    "not-callable"
-]
-
-[tool.pylint.basic]
-good-names = ["ad", "i"]
