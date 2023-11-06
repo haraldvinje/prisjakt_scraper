@@ -26,6 +26,34 @@ Test with the command `python -m pytest -v` from the root folder (assuming you a
 
 There are currently no restrictions in place, but please ensure good code quality by following linting and formatting rules by `flake8`. To lint, run `pylint prisjakt_scaper`. To format, run `black .`.
 
+### Debug
+
+To [debug in  VS Code](https://code.visualstudio.com/docs/editor/debugging), add this snippet to your `launch.json` file:
+
+
+`.vscode/launch.json`
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: tests",
+            "type": "python",
+            "request": "launch",
+            "module": "pytest",
+            "justMyCode": true
+        },
+        {
+            "name": "Python: main",
+            "type": "python",
+            "request": "launch",
+            "program": "prisjakt_scraper/main.py",
+            "justMyCode": true
+        }
+    ]
+}
+```
+
 ## Connect to the production database
 
 **Prerequisites**:
