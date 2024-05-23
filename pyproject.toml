@@ -24,7 +24,7 @@ webdriver-manager = "^4.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.1.0"
+black = "^24.0.0"
 flake8 = "^7.0.0"
 flake8-pyproject = "^1.2.3"
 
