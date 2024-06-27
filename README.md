@@ -4,7 +4,7 @@
 
 ### Prerequisites
 
-* Python version 3.11.
+* Python version 3.12.
 * [Docker](https://www.docker.com/get-started/)
 
 ### Local database
