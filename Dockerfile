@@ -1,4 +1,4 @@
-FROM python:3.12.4
+FROM python:3.4.8
 
 ARG APP_NAME=prisjakt_scraper
 ARG APP_PATH=/opt/$APP_NAME
